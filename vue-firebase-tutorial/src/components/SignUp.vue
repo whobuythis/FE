@@ -3,19 +3,27 @@
       <p>회원가입</p>
       <input type="text" placeholder="email"><br>
       <input type="password" placeholder="password"><br>
-      <button>가입하기</button>
+      <button v-on:click="signUp">가입하기</button>
       <span>또는 <router-link to="/login">로그인</router-link>으로 돌아가기</span>
     </div>
   </template>
   
   <script>
+    import firebase from 'firebase'
+
     export default {
       name: 'signUp',
       data() {
         return {
+          email: '',
+          password: ''
         }
       },
-      methods: {}
+      methods: {
+        signUp() {
+          firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(function(user) {alert('회원가입 완료!')}, function(err) {alert('에러 : ' + err.message)});
+        }
+      }
     }
   </script>
   
